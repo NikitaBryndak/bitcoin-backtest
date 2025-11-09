@@ -21,7 +21,7 @@ class BaseStrategy:
                 return df
     """
 
-    def generate_features(self, df: pd.DataFrame) -> pd.Dataframe:
+    def generate_features(self, df: pd.DataFrame) -> pd.DataFrame:
         """Generate and return feature columns for df.
 
         Args:
@@ -30,6 +30,8 @@ class BaseStrategy:
         Returns:
             pandas.DataFrame: DataFrame with added feature columns.
         """
+        print("--- Creating Strategy Features ---")
+        print("--- Strategy Features Created ---")
         raise NotImplementedError("Implement generate_features() before using it.")
 
     def generate_signals(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -41,7 +43,9 @@ class BaseStrategy:
         Returns:
             pandas.DataFrame: Signals indexed like df (e.g. -1, 0, 1) in a 'Signal' column
         """
+        print("--- Creating Strategy Signals ---")
+        print("--- Strategy Signals Created ---")
         raise NotImplementedError("Implement generate_signals() before using it.")
         
     def __str__(self):
-        return "Templete Strategy"
+        return "Template Strategy"

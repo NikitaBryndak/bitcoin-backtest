@@ -1,6 +1,6 @@
 from .base_strategy import BaseStrategy
 
-class MeanReversion(BaseStrategy):
+class MeanReversionStrategy(BaseStrategy):
     """
     MeanReversion(strategy)
     
@@ -48,20 +48,21 @@ class MeanReversion(BaseStrategy):
         self.long_window = long_window
         
     def generate_features(self, df):
+        print("--- Creating Strategy Features ---")
         df[f'SMA_{self.short_window}'] = df['Close'].rolling(self.short_window).mean()
         df[f'SMA_{self.long_window}'] = df['Close'].rolling(self.long_window).mean()
         
-        print("MeanReversion Feature are created...")
+        print("--- Strategy Features Created ---")
         
         return df
     
     def generate_signals(self, df):
+        print("--- Creating Strategy Signals ---")
         df['Signal'] = 0
+        df.loc[df['Close'] < df[f'SMA_{self.long_window}'], 'Signal'] = 1
+        df.loc[df['Close'] > df[f'SMA_{self.short_window}'], 'Signal'] = -1
         
-        df.loc[df['Colse'] < df[f'SAM_{self.long_window}'], 'Signal'] = 1
-        df.loc[df['Colse'] > df[f'SAM_{self.short_window}'], 'Signal'] = -1
-        
-        print("MeanReversion Signals are created...")
+        print("--- Strategy Signals Created ---")
         
         return df
     
